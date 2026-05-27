@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useTema } from '@/hooks/useTema'
-import Portada from '@/components/Portada'
+import { Portada } from '@/components/Portada'
 import { Navbar } from '@/components/Navbar'
 import { SeccionAutores } from '@/components/SeccionAutores'
 import { SeccionJustificacion } from '@/components/SeccionJustificacion'
@@ -11,17 +10,18 @@ import { Footer } from '@/components/Footer'
 const SECCIONES = ['autores', 'justificacion', 'introduccion', 'referentes']
 
 export default function App() {
-  const { oscuro, toggleTema } = useTema()
   const [mostrarRevista, setMostrarRevista] = useState(false)
   const [seccionActiva, setSeccionActiva] = useState('')
+
+  useEffect(() => {
+    document.documentElement.classList.add('dark')
+  }, [])
 
   useEffect(() => {
     if (!mostrarRevista) return
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setSeccionActiva(entry.target.id)
-        })
+        entries.forEach((e) => { if (e.isIntersecting) setSeccionActiva(e.target.id) })
       },
       { rootMargin: '-40% 0px -55% 0px' }
     )
@@ -34,31 +34,22 @@ export default function App() {
 
   const handleVerContenido = () => {
     setMostrarRevista(true)
-    setTimeout(() => {
-      document.getElementById('autores')?.scrollIntoView({ behavior: 'smooth' })
-    }, 100)
+    setTimeout(() => document.getElementById('autores')?.scrollIntoView({ behavior: 'smooth' }), 100)
   }
 
   return (
-    <div className={oscuro ? 'dark' : ''}>
-      <div className="bg-white dark:bg-stone-950 min-h-screen transition-colors duration-300">
-        <Portada onVerContenido={handleVerContenido} />
-
-        {mostrarRevista && (
-          <>
-            <Navbar
-              oscuro={oscuro}
-              onToggleTema={toggleTema}
-              seccionActiva={seccionActiva}
-            />
-            <SeccionAutores />
-            <SeccionJustificacion />
-            <SeccionIntroduccion />
-            <SeccionReferentes />
-            <Footer />
-          </>
-        )}
-      </div>
+    <div className="min-h-screen" style={{ background: 'var(--bg-dark)' }}>
+      <Portada onVerContenido={handleVerContenido} />
+      {mostrarRevista && (
+        <>
+          <Navbar seccionActiva={seccionActiva} />
+          <SeccionAutores />
+          <SeccionJustificacion />
+          <SeccionIntroduccion />
+          <SeccionReferentes />
+          <Footer />
+        </>
+      )}
     </div>
   )
 }

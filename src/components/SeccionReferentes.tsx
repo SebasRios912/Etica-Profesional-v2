@@ -1,141 +1,152 @@
 import { useState } from 'react'
 import { referentes } from '@/data/contenido'
+import { useReveal } from '@/hooks/useReveal'
 
-const colorMap: Record<string, { accent: string; bg: string; border: string; tag: string }> = {
-  amber:   { accent: 'text-amber-400',   bg: 'bg-amber-500',   border: 'border-amber-500',   tag: 'bg-amber-500/10 text-amber-400 border-amber-500/30' },
-  blue:    { accent: 'text-blue-400',    bg: 'bg-blue-500',    border: 'border-blue-500',    tag: 'bg-blue-500/10 text-blue-400 border-blue-500/30' },
-  red:     { accent: 'text-red-400',     bg: 'bg-red-500',     border: 'border-red-500',     tag: 'bg-red-500/10 text-red-400 border-red-500/30' },
-  emerald: { accent: 'text-emerald-400', bg: 'bg-emerald-500', border: 'border-emerald-500', tag: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30' },
-  violet:  { accent: 'text-violet-400',  bg: 'bg-violet-500',  border: 'border-violet-500',  tag: 'bg-violet-500/10 text-violet-400 border-violet-500/30' },
+const colorMap: Record<string, { cssVar: string }> = {
+  amber:   { cssVar: '--c1' },
+  blue:    { cssVar: '--c2' },
+  red:     { cssVar: '--c3' },
+  emerald: { cssVar: '--c2' },
+  violet:  { cssVar: '--c3' },
 }
 
 export function SeccionReferentes() {
   const [expandido, setExpandido] = useState<string | null>('r1')
+  const { ref, visible } = useReveal({ threshold: 0.08 })
 
   return (
-    <section id="referentes" className="py-24 bg-white dark:bg-stone-950 border-t border-stone-200 dark:border-stone-800">
-      <div className="max-w-5xl mx-auto px-8">
-        <div className="flex items-center gap-6 mb-16">
-          <div>
-            <p className="text-amber-500 text-[10px] font-mono tracking-[0.4em] uppercase mb-1">— Base académica</p>
-            <h2 className="text-stone-900 dark:text-stone-100 font-black text-4xl" style={{ fontFamily: 'Georgia, serif' }}>
-              Referentes Teóricos
-            </h2>
+    <section id="referentes" className="py-16 sm:py-24" style={{ background: '#f8f7fc', borderTop: '1px solid var(--border-light)', color: 'var(--text-dark)' }}>
+      <div className="max-w-5xl mx-auto px-4 sm:px-8" ref={ref}>
+        <div className={`reveal ${visible ? 'visible' : ''}`}>
+          <div className="flex items-center gap-4 sm:gap-6 mb-10 sm:mb-16">
+            <div>
+              <p className="text-accent text-[9px] sm:text-[10px] font-mono tracking-[0.3em] sm:tracking-[0.4em] uppercase mb-1" style={{ fontFamily: 'var(--font-mono)' }}>— Base académica</p>
+              <h2 className="font-black text-2xl sm:text-3xl lg:text-4xl" style={{ fontFamily: 'var(--font-display)', color: '#1a1a2e' }}>
+                Referentes Teóricos
+              </h2>
+            </div>
+            <div className="h-px flex-1" style={{ background: 'var(--border-light)' }} />
           </div>
-          <div className="h-px flex-1 bg-stone-200 dark:bg-stone-800" />
         </div>
 
-        {/* Índice de 5 botones */}
-        <div className="grid grid-cols-5 gap-1 mb-16">
-          {referentes.map((r) => {
-            const c = colorMap[r.color]
-            const activo = expandido === r.id
-            return (
-              <button
-                key={r.id}
-                onClick={() => setExpandido(activo ? null : r.id)}
-                className={`p-4 border transition-all duration-300 text-left ${
-                  activo ? `${c.bg} border-transparent` : `bg-white dark:bg-stone-950 ${c.border} border-opacity-40 hover:bg-stone-50 dark:hover:bg-stone-900`
-                }`}
-              >
-                <span className={`block text-2xl font-black leading-none mb-2 ${activo ? 'text-stone-950' : c.accent}`}
-                  style={{ fontFamily: 'Georgia, serif' }}>
-                  {r.numero}
-                </span>
-                <span className={`block text-[10px] font-mono leading-tight ${activo ? 'text-stone-900' : 'text-stone-500'}`}>
-                  {r.etiqueta}
-                </span>
-              </button>
-            )
-          })}
-        </div>
-
-        {/* Artículo expandido */}
-        {referentes.map((r) => {
-          const c = colorMap[r.color]
-          if (expandido !== r.id) return null
-          return (
-            <div key={r.id} className="border border-stone-200 dark:border-stone-800 overflow-hidden">
-
-              <div className="grid grid-cols-1 lg:grid-cols-12">
-                <div className={`lg:col-span-2 ${c.bg} flex items-center justify-center py-10 lg:py-0`}>
-                  <span className="text-stone-950 font-black opacity-80"
-                    style={{ fontFamily: 'Georgia, serif', fontSize: '5rem', lineHeight: 1 }}>
+        {/* Índice de 5 botones responsive */}
+        <div className={`stagger-item ${visible ? 'visible' : ''}`} style={{ transitionDelay: '0.15s' }}>
+          <div className="grid grid-cols-3 sm:grid-cols-5 gap-1 mb-12 sm:mb-16">
+            {referentes.map((r) => {
+              const c = colorMap[r.color]
+              const activo = expandido === r.id
+              return (
+                <button
+                  key={r.id}
+                  onClick={() => setExpandido(activo ? null : r.id)}
+                  className="p-2 sm:p-4 border transition-all duration-300 text-left min-h-[60px] sm:min-h-0"
+                  style={activo ? { background: `var(${c.cssVar})`, borderColor: 'transparent' } : { borderColor: '#d5d0e6', background: '#ffffff' }}
+                >
+                  <span className="block text-lg sm:text-2xl font-black leading-none mb-0.5 sm:mb-2" style={{ fontFamily: 'var(--font-display)', color: activo ? '#07061A' : `var(${c.cssVar})` }}>
                     {r.numero}
                   </span>
-                </div>
-                <div className="lg:col-span-10 p-8 bg-stone-50 dark:bg-stone-900">
-                  <div className="flex items-start justify-between gap-4 flex-wrap mb-4">
-                    <span className={`text-[10px] font-mono tracking-[0.3em] uppercase px-3 py-1 border ${c.tag}`}>
-                      {r.etiqueta}
-                    </span>
-                    <span className="text-stone-400 text-xs font-mono">Referente {r.numero} / 05</span>
-                  </div>
-                  <h3 className="text-stone-900 dark:text-stone-100 font-black text-2xl leading-snug mb-4"
-                    style={{ fontFamily: 'Georgia, serif' }}>
-                    {r.titulo}
-                  </h3>
-                  <blockquote className={`border-l-4 ${c.border} pl-4 py-1`}>
-                    <p className={`italic text-sm leading-relaxed ${c.accent}`} style={{ fontFamily: 'Georgia, serif' }}>
-                      "{r.cita.texto}"
-                    </p>
-                    <cite className="block text-stone-500 text-[10px] font-mono tracking-wider mt-2 not-italic">
-                      — {r.cita.autor}
-                    </cite>
-                  </blockquote>
-                </div>
-              </div>
-
-              <div className="p-8 border-t border-stone-200 dark:border-stone-800">
-                <div className="columns-1 md:columns-2 gap-10">
-                  {r.parrafos.map((p, i) => (
-                    <p key={i} className="text-stone-700 dark:text-stone-300 leading-relaxed mb-5 break-inside-avoid"
-                      style={{ fontSize: '0.92rem', fontFamily: 'Georgia, serif' }}>
-                      {p}
-                    </p>
-                  ))}
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 lg:grid-cols-2 border-t border-stone-200 dark:border-stone-800">
-                <div className="p-8 border-b lg:border-b-0 lg:border-r border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-stone-900">
-                  <p className={`text-[10px] font-mono tracking-[0.3em] uppercase ${c.accent} mb-3`}>Aporte a la revista</p>
-                  <p className="text-stone-700 dark:text-stone-300 text-sm leading-relaxed" style={{ fontFamily: 'Georgia, serif' }}>
-                    {r.aporte}
-                  </p>
-                </div>
-                <div className="p-8 bg-stone-50 dark:bg-stone-900">
-                  <p className="text-stone-500 text-[10px] font-mono tracking-[0.3em] uppercase mb-3">Referencias</p>
-                  <ul className="space-y-3">
-                    {r.referencias.map((ref) => (
-                      <li key={ref} className="flex items-start gap-2">
-                        <span className={`shrink-0 w-1 h-1 rounded-full mt-2 ${c.bg}`} />
-                        <p className="text-stone-500 text-xs leading-relaxed font-mono">{ref}</p>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              <div className="flex border-t border-stone-200 dark:border-stone-800">
-                {referentes.map((rx) => (
-                  <button key={rx.id} onClick={() => setExpandido(rx.id)}
-                    className={`flex-1 py-3 text-[10px] font-mono transition-colors ${
-                      rx.id === r.id ? `${c.bg} text-stone-950 font-bold` : 'text-stone-500 hover:text-stone-200 hover:bg-stone-900'
-                    }`}>
-                    {rx.numero}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )
-        })}
-
-        {expandido === null && (
-          <div className="border border-dashed border-stone-300 dark:border-stone-800 p-12 text-center">
-            <p className="text-stone-400 text-sm font-mono">Selecciona un referente para leer el artículo</p>
+                  <span className="block text-[8px] sm:text-[10px] font-mono leading-tight" style={{ fontFamily: 'var(--font-mono)', color: activo ? '#07061A' : '#38385c' }}>
+                    {r.etiqueta}
+                  </span>
+                </button>
+              )
+            })}
           </div>
-        )}
+        </div>
+
+        {/* Artículo expandido responsive */}
+        <div className={`stagger-item ${visible ? 'visible' : ''}`} style={{ transitionDelay: '0.3s' }}>
+          {referentes.map((r) => {
+            const c = colorMap[r.color]
+            if (expandido !== r.id) return null
+            return (
+              <div key={r.id} className="overflow-hidden referente-enter" style={{ border: '1px solid #d5d0e6' }}>
+
+                <div className="grid grid-cols-1 sm:grid-cols-12">
+                  <div className="sm:col-span-2 flex items-center justify-center py-6 sm:py-10" style={{ background: `var(${c.cssVar})` }}>
+                    <span className="font-black opacity-80"
+                      style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(3rem, 8vw, 5rem)', lineHeight: 1, color: '#07061A' }}>
+                      {r.numero}
+                    </span>
+                  </div>
+                  <div className="sm:col-span-10 p-4 sm:p-8" style={{ background: '#ffffff' }}>
+                    <div className="flex flex-col sm:flex-row items-start justify-between gap-3 sm:gap-4 flex-wrap mb-3 sm:mb-4">
+                      <span className="text-[9px] sm:text-[10px] font-mono tracking-[0.2em] sm:tracking-[0.3em] uppercase px-2 sm:px-3 py-1 border" style={{ fontFamily: 'var(--font-mono)', background: `rgba(var(${c.cssVar}-rgb),0.1)`, color: `var(${c.cssVar})`, borderColor: `rgba(var(${c.cssVar}-rgb),0.3)` }}>
+                        {r.etiqueta}
+                      </span>
+                      <span className="text-[10px] sm:text-xs font-mono" style={{ fontFamily: 'var(--font-mono)', color: '#38385c' }}>Referente {r.numero} / 05</span>
+                    </div>
+                    <h3 className="font-black text-lg sm:text-xl lg:text-2xl leading-snug mb-3 sm:mb-4" style={{ fontFamily: 'var(--font-display)', color: '#1a1a2e' }}>
+                      {r.titulo}
+                    </h3>
+                    <blockquote className="border-l-3 sm:border-l-4 pl-3 sm:pl-4 py-1" style={{ borderColor: `var(${c.cssVar})` }}>
+                      <p className="italic text-xs sm:text-sm leading-relaxed" style={{ fontFamily: 'var(--font-body)', color: `var(${c.cssVar})` }}>
+                        "{r.cita.texto}"
+                      </p>
+                      <cite className="block text-[9px] sm:text-[10px] font-mono tracking-wider mt-1.5 sm:mt-2 not-italic" style={{ fontFamily: 'var(--font-mono)', color: '#38385c' }}>
+                        — {r.cita.autor}
+                      </cite>
+                    </blockquote>
+                  </div>
+                </div>
+
+                <div className="p-4 sm:p-8" style={{ borderTop: '1px solid #d5d0e6' }}>
+                  <div className="columns-1 md:columns-2 gap-6 sm:gap-10">
+                    {r.parrafos.map((p, i) => (
+                      <p key={i} className="leading-relaxed mb-4 break-inside-avoid text-xs sm:text-sm"
+                        style={{ fontFamily: 'var(--font-body)', color: '#1a1a2e' }}>
+                        {p}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2" style={{ borderTop: '1px solid #d5d0e6' }}>
+                  <div className="p-4 sm:p-8 border-b sm:border-b-0 sm:border-r" style={{ borderColor: '#d5d0e6', background: '#f5f4f9' }}>
+                    <p className="text-[9px] sm:text-[10px] font-mono tracking-[0.2em] sm:tracking-[0.3em] uppercase mb-2 sm:mb-3" style={{ fontFamily: 'var(--font-mono)', color: '#1a1a2e' }}>Aporte a la revista</p>
+                    <p className="text-xs sm:text-sm leading-relaxed" style={{ fontFamily: 'var(--font-body)', color: '#1a1a2e' }}>
+                      {r.aporte}
+                    </p>
+                  </div>
+                  <div className="p-4 sm:p-8" style={{ background: '#f5f4f9' }}>
+                    <p className="text-[9px] sm:text-[10px] font-mono tracking-[0.2em] sm:tracking-[0.3em] uppercase mb-2 sm:mb-3" style={{ fontFamily: 'var(--font-mono)', color: '#38385c' }}>Referencias</p>
+                    <ul className="space-y-2 sm:space-y-3">
+                      {r.referencias.map((ref) => (
+                        <li key={ref} className="flex items-start gap-1.5 sm:gap-2">
+                            <span className="shrink-0 w-1 h-1 rounded-full mt-1.5 sm:mt-2" style={{ background: `var(${c.cssVar})` }} />
+                          <p className="text-[10px] sm:text-xs leading-relaxed font-mono" style={{ fontFamily: 'var(--font-mono)', color: '#38385c' }}>{ref}</p>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap" style={{ borderTop: '1px solid #d5d0e6' }}>
+                  {referentes.map((rx) => {
+                    const activo = rx.id === r.id
+                    return (
+                      <button key={rx.id} onClick={() => setExpandido(rx.id)}
+                        className="flex-1 min-w-[60px] py-2 sm:py-3 text-[9px] sm:text-[10px] font-mono transition-colors"
+                        style={{
+                          fontFamily: 'var(--font-mono)',
+                          color: activo ? '#07061A' : '#38385c',
+                          background: activo ? `var(${c.cssVar})` : 'transparent',
+                        }}>
+                        {rx.numero}
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+            )
+          })}
+
+          {expandido === null && (
+            <div className="border border-dashed p-8 sm:p-12 text-center" style={{ borderColor: '#bfbadd' }}>
+              <p className="text-xs sm:text-sm font-mono" style={{ fontFamily: 'var(--font-mono)', color: '#38385c' }}>Selecciona un referente para leer el artículo</p>
+            </div>
+          )}
+        </div>
       </div>
     </section>
   )

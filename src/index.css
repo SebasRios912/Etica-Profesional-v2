@@ -1,5 +1,30 @@
 @import "tailwindcss";
 
+:root {
+  --c1: #3B8BFF;
+  --c1-rgb: 59,139,255;
+  --c2: #3BEBFF;
+  --c2-rgb: 59,235,255;
+  --c3: #4F3BFF;
+  --c3-rgb: 79,59,255;
+  --c4: #4F3BFF;
+  --c4-rgb: 79,59,255;
+  --bg-dark: #07061A;
+  --text: rgba(255,255,255,0.94);
+  --muted: rgba(255,255,255,0.55);
+  --muted-weak: rgba(255,255,255,0.35);
+  --bg-light: #f0eef7;
+  --bg-lighter: #ffffff;
+  --text-dark: #1a1a2e;
+  --text-muted-dark: #38385c;
+  --muted-strong: #555580;
+  --border-light: rgba(59,139,255, 0.08);
+
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'Instrument Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
 @variant dark (&:where(.dark, .dark *));
 
 @layer base {
@@ -7,6 +32,394 @@
     scroll-behavior: smooth;
   }
   body {
-    font-family: system-ui, sans-serif;
+    font-family: var(--font-body);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
+
+/* ---------- BUTTON MODERN HOVER ---------- */
+.btn-modern {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border: 1px solid var(--c1);
+  color: var(--c1);
+  background: transparent;
+  cursor: pointer;
+  transition: color 0.3s ease, background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.btn-modern::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--c1), var(--c3));
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+  z-index: 0;
+}
+
+.btn-modern:hover {
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(59,139,255,0.3);
+}
+
+.btn-modern:hover::before {
+  transform: scaleY(1);
+}
+
+.btn-modern > * {
+  position: relative;
+  z-index: 1;
+}
+
+.btn-modern:active {
+  transform: translateY(0);
+}
+
+/* ---------- CARD HOVER ---------- */
+.card-hover {
+  transition: transform 0.35s cubic-bezier(0.215, 0.61, 0.355, 1),
+              box-shadow 0.35s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(26,26,46,0.12);
+}
+
+/* ---------- GLOW LINE ---------- */
+.glow-line {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--c1), var(--c2), transparent);
+  width: 0;
+  transition: width 0.5s ease;
+}
+
+.card-hover:hover .glow-line {
+  width: 100%;
+}
+
+/* ---------- REVEAL ANIMATIONS ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.215, 0.61, 0.355, 1),
+              transform 0.7s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.25s; }
+.reveal-delay-3 { transition-delay: 0.4s; }
+.reveal-delay-4 { transition-delay: 0.55s; }
+.reveal-delay-5 { transition-delay: 0.7s; }
+
+/* ---------- HERO ANIMATIONS ---------- */
+@keyframes expandLetterSpacing {
+  from { letter-spacing: -0.08em; opacity: 0; }
+  to { letter-spacing: normal; opacity: 1; }
+}
+
+@keyframes growWidth {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-title {
+  animation: expandLetterSpacing 1s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+}
+
+.hero-line {
+  animation: growWidth 0.8s cubic-bezier(0.215, 0.61, 0.355, 1) 0.4s forwards;
+  width: 0;
+}
+
+.hero-subtitle {
+  opacity: 0;
+  animation: fadeSlideUp 0.7s cubic-bezier(0.215, 0.61, 0.355, 1) 0.7s forwards;
+}
+
+.hero-stats {
+  opacity: 0;
+  animation: fadeSlideUp 0.7s cubic-bezier(0.215, 0.61, 0.355, 1) 1s forwards;
+}
+
+.hero-quote {
+  opacity: 0;
+  animation: fadeSlideUp 0.7s cubic-bezier(0.215, 0.61, 0.355, 1) 1.2s forwards;
+}
+
+.hero-cta {
+  opacity: 0;
+  animation: fadeSlideUp 0.7s cubic-bezier(0.215, 0.61, 0.355, 1) 1.4s forwards;
+}
+
+.hero-footer {
+  opacity: 0;
+  animation: fadeSlideUp 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) 1.6s forwards;
+}
+
+/* ---------- STAGGER ITEMS ---------- */
+.stagger-item {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s cubic-bezier(0.215, 0.61, 0.355, 1),
+              transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.stagger-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- REFERENTE SLIDE ---------- */
+.referente-enter {
+  animation: referenteSlideIn 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+}
+
+@keyframes referenteSlideIn {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* =============================================
+   🌐 FONDO DE RED (SISTEMA)
+   ============================================= */
+
+@keyframes scanVertical {
+  0%   { top: -10%; opacity: 0; }
+  10%  { opacity: 0.4; }
+  90%  { opacity: 0.4; }
+  100% { top: 110%; opacity: 0; }
+}
+
+@keyframes lineDrift {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes nodeBlink {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50%      { opacity: 1;   transform: scale(1.4); }
+}
+
+@keyframes horizontalLine {
+  0%   { transform: translateX(-100%); opacity: 0; }
+  20%  { opacity: 0.6; }
+  80%  { opacity: 0.6; }
+  100% { transform: translateX(100%); opacity: 0; }
+}
+
+.network-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Grilla base de la red */
+.network-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 49px,
+      rgba(59,139,255,0.18) 49px,
+      rgba(59,139,255,0.18) 50px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 49px,
+      rgba(79,59,255,0.15) 49px,
+      rgba(79,59,255,0.15) 50px
+    );
+  pointer-events: none;
+}
+
+/* Líneas horizontales desplazándose (ondas de datos) */
+.network-bg .drift-lines {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.network-bg .drift-lines::before,
+.network-bg .drift-lines::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(59,235,255,0.6) 50%, transparent 100%);
+  animation: horizontalLine 6s linear infinite;
+  box-shadow: 0 0 6px rgba(59,235,255,0.4);
+}
+
+.network-bg .drift-lines::before { top: 28%; animation-delay: 0s; }
+.network-bg .drift-lines::after  { top: 68%; animation-delay: 3s; background: linear-gradient(90deg, transparent 0%, rgba(59,139,255,0.6) 50%, transparent 100%); box-shadow: 0 0 6px rgba(59,139,255,0.4); }
+
+/* Puntos nodo */
+.network-node {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--c1);
+  animation: nodeBlink 3s ease-in-out infinite;
+  box-shadow: 0 0 8px rgba(59,139,255,0.6);
+}
+
+/* Barra de escaneo vertical */
+.network-bg .scan-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(59,139,255,0.18),
+    transparent
+  );
+  animation: scanVertical 6s ease-in-out infinite;
+}
+
+/* Patrón de puntos en grilla */
+.network-bg .dot-grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(59,139,255,0.35) 1.5px, transparent 1.5px);
+  background-size: 50px 50px;
+}
+
+/* =============================================
+   🎨 ILUSTRACIÓN TÉCNICA (INGENIERÍA INFORMÁTICA)
+   ============================================= */
+
+/* Círculo nodo principal */
+@keyframes nodePulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(59,139,255,0.4); }
+  50%      { box-shadow: 0 0 0 15px rgba(59,139,255,0); }
+}
+
+.tech-node {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--c1), var(--c3));
+  animation: nodePulse 2.5s ease-in-out infinite;
+  position: relative;
+}
+
+.tech-node::after {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.3);
+}
+
+/* Anillos orbitales */
+@keyframes orbit1 {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes orbit2 {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+.orbit-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(59,139,255,0.2);
+  animation: orbit1 8s linear infinite;
+}
+
+.orbit-ring-2 {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(79,59,255,0.15);
+  animation: orbit2 12s linear infinite;
+}
+
+.orbit-dot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--c2);
+  top: -3px;
+  left: 50%;
+  margin-left: -3px;
+}
+
+/* Líneas de conexión animadas */
+@keyframes dashMove {
+  to { stroke-dashoffset: -20; }
+}
+
+.tech-line {
+  animation: dashMove 1s linear infinite;
+}
+
+/* Símbolos de código flotantes */
+@keyframes floatSymbol {
+  0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+  50%      { transform: translateY(-10px) rotate(5deg); opacity: 0.6; }
+}
+
+.tech-symbol {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--c2);
+  animation: floatSymbol 4s ease-in-out infinite;
+  opacity: 0.2;
+}
+
+/* Cuadrícula de puntos */
+.tech-dots {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(59,139,255,0.15) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* ---------- Utility helpers ---------- */
+.text-accent { color: var(--c1) !important; }
+.text-accent-2 { color: var(--c2) !important; }
+.text-accent-3 { color: var(--c3) !important; }
+.bg-accent { background: var(--c1) !important; }
+.bg-accent-2 { background: var(--c2) !important; }
+.bg-accent-3 { background: var(--c3) !important; }
+.border-accent { border-color: var(--c1) !important; }
+.border-accent-2 { border-color: var(--c2) !important; }
+.border-accent-3 { border-color: var(--c3) !important; }

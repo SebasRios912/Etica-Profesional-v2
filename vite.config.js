@@ -3,11 +3,10 @@ import react from '@vitejs/plugin-react'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-// https://vite.dev/config/
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 export default defineConfig({
-  base: '/Etica-Profesional-v2/',
+  base: '/', // 👈 para Vercel
   plugins: [react()],
   resolve: {
     alias: {

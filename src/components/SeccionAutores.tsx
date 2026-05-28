@@ -3,16 +3,16 @@ import { autores } from '@/data/contenido'
 
 export function SeccionAutores() {
   return (
-    <section id="autores" className="py-24" style={{ background: 'var(--bg-light)', color: 'var(--text-dark)' }}>
-      <div className="max-w-5xl mx-auto px-8">
-        <div className="flex items-center gap-6 mb-16">
-          <div>
+    <section id="autores" className="min-h-screen flex flex-col justify-center" style={{ background: 'var(--bg-light)', color: 'var(--text-dark)' }}>
+      <div className="max-w-5xl mx-auto px-8 w-full">
+        <div className="flex flex-col items-center gap-6 mb-16">
+          <div className="text-center">
             <p className="text-accent text-[10px] font-mono tracking-[0.4em] uppercase mb-1">— Equipo editorial</p>
             <h2 className="font-black text-4xl" style={{ fontFamily: 'Georgia, serif', color: 'var(--text-dark)' }}>
               Los Autores
             </h2>
           </div>
-          <div className="h-px flex-1" style={{ background: 'var(--border-light)' }} />
+          <div className="h-px w-32" style={{ background: 'var(--border-light)' }} />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

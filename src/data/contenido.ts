@@ -24,7 +24,7 @@ export const autores = [
       email: 'btrujillo@correo.iue.edu.co',
       nivel: 'Inglés B1',
       iniciales: 'BT',
-      foto: '',
+      foto: '/autores/brayan-trujillo-rodriguez.jpeg',
     },
   ]
   

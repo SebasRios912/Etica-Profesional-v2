@@ -1,30 +1,23 @@
 import { useState } from 'react'
 import { autores } from '@/data/contenido'
-import { useReveal } from '@/hooks/useReveal'
 
 export function SeccionAutores() {
-  const { ref, visible } = useReveal({ threshold: 0.1 })
-
   return (
-    <section id="autores" className="py-16 sm:py-24" style={{ background: '#eeedf4', color: 'var(--text-dark)' }}>
-      <div className="max-w-5xl mx-auto px-4 sm:px-8" ref={ref}>
-        <div className={`reveal ${visible ? 'visible' : ''}`}>
-          <div className="flex items-center gap-4 sm:gap-6 mb-10 sm:mb-16">
-            <div>
-              <p className="text-accent text-[9px] sm:text-[10px] font-mono tracking-[0.3em] sm:tracking-[0.4em] uppercase mb-1" style={{ fontFamily: 'var(--font-mono)' }}>— Equipo editorial</p>
-              <h2 className="font-black text-2xl sm:text-3xl lg:text-4xl" style={{ fontFamily: 'var(--font-display)', color: '#1a1a2e' }}>
-                Los Autores
-              </h2>
-            </div>
-            <div className="h-px flex-1" style={{ background: 'var(--border-light)' }} />
+    <section id="autores" className="py-24" style={{ background: 'var(--bg-light)', color: 'var(--text-dark)' }}>
+      <div className="max-w-5xl mx-auto px-8">
+        <div className="flex items-center gap-6 mb-16">
+          <div>
+            <p className="text-accent text-[10px] font-mono tracking-[0.4em] uppercase mb-1">— Equipo editorial</p>
+            <h2 className="font-black text-4xl" style={{ fontFamily: 'Georgia, serif', color: 'var(--text-dark)' }}>
+              Los Autores
+            </h2>
           </div>
+          <div className="h-px flex-1" style={{ background: 'var(--border-light)' }} />
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {autores.map((autor, i) => (
-            <div key={autor.nombre} className={`stagger-item ${visible ? 'visible' : ''}`} style={{ transitionDelay: `${i * 0.15}s` }}>
-              <TarjetaAutor autor={autor} />
-            </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {autores.map((autor) => (
+            <TarjetaAutor key={autor.nombre} autor={autor} />
           ))}
         </div>
       </div>
@@ -37,8 +30,8 @@ function TarjetaAutor({ autor }: { autor: typeof autores[0] }) {
 
   return (
     <div
-      className="relative cursor-pointer card-hover"
-      style={{ perspective: '1000px', height: 'clamp(240px, 30vw, 300px)' }}
+      className="relative cursor-pointer"
+      style={{ perspective: '1000px', height: '420px' }}
       onClick={() => setGirada(v => !v)}
       onMouseEnter={() => setGirada(true)}
       onMouseLeave={() => setGirada(false)}
@@ -52,38 +45,40 @@ function TarjetaAutor({ autor }: { autor: typeof autores[0] }) {
       >
         {/* Frente */}
         <div
-          className="absolute inset-0 flex flex-col items-center justify-center border p-4 sm:p-6 rounded-sm"
-          style={{ backfaceVisibility: 'hidden', background: '#f8f7fc', borderColor: '#e0dcf0' }}
+          className="absolute inset-0 flex flex-col items-center justify-center bg-white border p-8"
+          style={{ backfaceVisibility: 'hidden', borderColor: 'var(--border-light)' }}
         >
-          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center font-black text-xl sm:text-2xl mb-3 sm:mb-4"
-            style={{ fontFamily: 'var(--font-display)', background: 'var(--c1)', color: '#07061A' }}>
-            {autor.iniciales}
+          <div className="w-28 h-28 rounded-full flex items-center justify-center text-stone-950 font-black text-4xl mb-6 overflow-hidden" style={{ fontFamily: 'Georgia, serif', background: autor.foto ? 'white' : 'var(--c1)' }}>
+            {autor.foto ? (
+              <img src={autor.foto} alt={autor.nombre} className="w-full h-full object-cover object-center" />
+            ) : (
+              autor.iniciales
+            )}
           </div>
-          <h3 className="font-bold text-center text-xs sm:text-sm leading-snug mb-1" style={{ color: '#1a1a2e', fontFamily: 'var(--font-display)' }}>
+          <h3 className="font-bold text-center text-base leading-snug mb-2" style={{ color: 'var(--text-dark)' }}>
             {autor.nombre}
           </h3>
-          <p style={{ color: '#4a4a6a', fontSize: '0.7rem', fontFamily: 'var(--font-body)' }} className="text-center">{autor.rol}</p>
-          <p style={{ color: '#38385c', fontSize: '0.7rem', fontFamily: 'var(--font-body)' }} className="text-center">{autor.semestre}</p>
-          <div className="glow-line mt-2 sm:mt-3" />
-          <p className="text-accent text-[9px] sm:text-[10px] mt-2 sm:mt-3 font-mono tracking-wider" style={{ fontFamily: 'var(--font-mono)' }}>{autor.nivel}</p>
-          <p style={{ color: '#38385c', fontSize: '9px', fontFamily: 'var(--font-mono)' }} className="mt-1 tracking-widest uppercase">Clic para más info</p>
+          <p className="text-sm text-center" style={{ color: 'var(--text-muted-dark)' }}>{autor.rol}</p>
+          <p className="text-sm text-center" style={{ color: 'var(--text-muted-dark)' }}>{autor.semestre}</p>
+          <p className="text-accent text-xs mt-4 font-mono tracking-wider">{autor.nivel}</p>
+          <p className="text-xs mt-2 font-mono tracking-widest uppercase" style={{ color: 'var(--text-muted-dark)' }}>Clic para más info</p>
         </div>
 
         {/* Reverso */}
         <div
-          className="absolute inset-0 flex flex-col justify-center p-4 sm:p-6 rounded-sm"
-          style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)', background: 'var(--c1)' }}
+          className="absolute inset-0 flex flex-col justify-center bg-accent border border-accent-2 p-8"
+          style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
         >
-          <p className="text-[9px] sm:text-[10px] font-mono tracking-[0.3em] uppercase mb-3 sm:mb-4" style={{ fontFamily: 'var(--font-mono)', color: '#07061A' }}>— Contacto</p>
-          <p className="font-bold text-base sm:text-lg leading-tight mb-3 sm:mb-4" style={{ fontFamily: 'var(--font-display)', color: '#07061A' }}>
+          <p className="text-stone-950 text-xs font-mono tracking-[0.3em] uppercase mb-6">— Contacto</p>
+          <p className="text-stone-950 font-bold text-xl leading-tight mb-6" style={{ fontFamily: 'Georgia, serif' }}>
             {autor.nombre}
           </p>
-          <div className="border-t pt-3 sm:pt-4 space-y-1.5 sm:space-y-2" style={{ borderColor: 'rgba(7,6,26,0.2)' }}>
-            <p className="text-[11px] sm:text-xs font-mono break-all" style={{ fontFamily: 'var(--font-mono)', color: '#07061A' }}>{autor.email}</p>
+          <div className="border-t border-stone-900/20 pt-4 space-y-3">
+            <p className="text-stone-900 text-sm font-mono break-all">{autor.email}</p>
             {[autor.rol, autor.semestre, autor.nivel].map((dato) => (
               <div key={dato} className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full" style={{ background: 'rgba(7,6,26,0.4)' }} />
-                <p className="text-[11px] sm:text-xs" style={{ color: '#07061A', fontFamily: 'var(--font-body)' }}>{dato}</p>
+                <span className="w-2 h-2 rounded-full bg-stone-900/40" />
+                <p className="text-stone-900 text-sm">{dato}</p>
               </div>
             ))}
           </div>

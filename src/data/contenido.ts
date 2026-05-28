@@ -6,7 +6,7 @@ export const autores = [
       email: 'sriosr@correo.iue.edu.co',
       nivel: 'Inglés B1',
       iniciales: 'SR',
-      foto: '',
+      foto: '/autores/sebastian-rios-restrepo.png',
     },
     {
       nombre: 'Juan Pablo Bernal Echeverry',
@@ -15,7 +15,7 @@ export const autores = [
       email: 'jpbernal@correo.iue.edu.co',
       nivel: 'Inglés B2',
       iniciales: 'JB',
-      foto: 'public/autores/juan-pablo-bernal-echeverry.jpg',
+      foto: '/autores/juan-pablo-bernal-echeverry.jpg',
     },
     {
       nombre: 'Brayan Enrique Trujillo Rodriguez',

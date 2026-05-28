@@ -3,7 +3,7 @@ import { autores } from '@/data/contenido'
 
 export function SeccionAutores() {
   return (
-    <section id="autores" className="min-h-screen flex flex-col justify-center" style={{ background: 'var(--bg-light)', color: 'var(--text-dark)' }}>
+    <section id="autores" className="min-h-screen flex flex-col justify-center pt-32" style={{ background: 'var(--bg-light)', color: 'var(--text-dark)' }}>
       <div className="max-w-5xl mx-auto px-8 w-full">
         <div className="flex flex-col items-center gap-6 mb-16">
           <div className="text-center">

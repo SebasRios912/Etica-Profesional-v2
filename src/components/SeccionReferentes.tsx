@@ -77,8 +77,8 @@ export function SeccionReferentes() {
                     </span>
                     <span className="text-[10px] font-mono" style={{ color: 'var(--text-muted-dark)' }}>Referente {r.numero} / 05</span>
                   </div>
-                  <h3 className="text-stone-900 dark:text-stone-100 font-black text-2xl leading-snug mb-4"
-                    style={{ fontFamily: 'Georgia, serif' }}>
+                  <h3 className="font-black text-2xl leading-snug mb-4"
+                    style={{ fontFamily: 'Georgia, serif', color: 'var(--text-dark)' }}>
                     {r.titulo}
                   </h3>
                   <blockquote className={`border-l-4 pl-4 py-1`} style={{ borderColor: `var(${c.cssVar})` }}>

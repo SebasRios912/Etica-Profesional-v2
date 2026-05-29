@@ -10,6 +10,7 @@ const SECCIONES = [
   { id: 'introduccion',  label: 'Introducción' },
   { id: 'referentes',    label: 'Referentes' },
   { id: 'entrevista',    label: 'Entrevista' },
+  { id: 'recursos',      label: 'Recursos' },
 ]
 
 export function Navbar({ seccionActiva }: NavbarProps) {
@@ -32,9 +33,10 @@ export function Navbar({ seccionActiva }: NavbarProps) {
   }
 
   return (
-    <header className="sticky top-0 z-50 backdrop-blur-md border-b"
-      style={{ background: 'rgba(7,6,26,0.95)', borderColor: 'rgba(var(--c1-rgb),0.2)' }}>
-
+    <header
+      className="sticky top-0 z-50 backdrop-blur-md border-b"
+      style={{ background: 'rgba(7,6,26,0.95)', borderColor: 'rgba(var(--c1-rgb),0.2)' }}
+    >
       {/* Barra de progreso */}
       <div
         className="absolute bottom-0 left-0 h-[2px] transition-all duration-150"

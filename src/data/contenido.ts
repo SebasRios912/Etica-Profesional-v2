@@ -196,3 +196,52 @@ export const autores = [
   El objetivo principal es promover la reflexión crítica y el conocimiento de las normativas éticas y profesionales, permitiendo a los estudiantes comprender la importancia de actuar con responsabilidad, honestidad y respeto en el desarrollo de soluciones tecnológicas.
   
   Este proyecto se desarrolla durante el semestre académico 2026-1, en el marco de la asignatura Ética Profesional, en la Institución Universitaria de Envigado.`
+
+  export const entrevista = {
+    titulo: 'Vivir la ética en la profesión',
+    etiqueta: 'Testimonio profesional',
+  
+    entrevistada: {
+      nombre: 'Martha Ligia Murillo',
+      cargos: [
+        'Profesora — Institución Universitaria de Envigado',
+        'Líder de Ingeniería de Software & DevSecOps — Nutresa',
+      ],
+      experiencia: '+30 años de trayectoria',
+      iniciales: 'ML',
+    },
+  
+    videoId: 'rl1e0aNDEpY',
+  
+    preguntas: [
+      '¿Podría contarnos su recorrido profesional y cómo llegó a liderar equipos de Ingeniería de Software?',
+      '¿Qué tan seguido se presentan dilemas éticos dentro de un equipo de desarrollo?',
+      '¿Ha tomado decisiones donde lo conveniente para el negocio chocaba con lo éticamente correcto?',
+      '¿Las universidades están formando ingenieros con suficiente conciencia ética?',
+      '¿Cómo fomentas una cultura ética dentro de tu equipo?',
+      '¿Qué consejo le darías a un estudiante a punto de entrar al mundo laboral?',
+    ],
+  
+    aprendizajes: [
+      {
+        numero: '01',
+        titulo: 'La ética no es negociable',
+        texto: 'En una organización con buen gobierno corporativo, la ética se irradia desde la presidencia hasta el último nivel. No es una opción: es la base que protege a la organización y su reputación.',
+      },
+      {
+        numero: '02',
+        titulo: 'La universidad enseña teoría; la empresa, contexto',
+        texto: 'El verdadero aprendizaje ético llega al enfrentar estructuras reales. La invitación es acortar esa brecha desde los primeros semestres, no esperar a la práctica profesional.',
+      },
+      {
+        numero: '03',
+        titulo: 'La integridad viene del ser, no del cargo',
+        texto: 'Ética e integridad no son habilidades laborales que se adquieren con el título. Son valores que se construyen en el hogar y se reflejan en cada decisión profesional.',
+      },
+      {
+        numero: '04',
+        titulo: 'Templanza ante la presión',
+        texto: 'Más que resiliencia, se necesita templanza: escuchar, ser humilde, saber decir "no sé", ir a las fuentes del conocimiento y generar valor desde cualquier cargo.',
+      },
+    ],
+  }

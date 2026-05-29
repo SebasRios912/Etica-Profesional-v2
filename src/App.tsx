@@ -5,9 +5,10 @@ import { SeccionAutores } from '@/components/SeccionAutores'
 import { SeccionJustificacion } from '@/components/SeccionJustificacion'
 import { SeccionIntroduccion } from '@/components/SeccionIntroduccion'
 import { SeccionReferentes } from '@/components/SeccionReferentes'
+import { SeccionEntrevista } from '@/components/SeccionEntrevista'
 import { Footer } from '@/components/Footer'
 
-const SECCIONES = ['autores', 'justificacion', 'introduccion', 'referentes']
+const SECCIONES = ['autores', 'justificacion', 'introduccion', 'referentes', 'entrevista']
 
 export default function App() {
   const [mostrarRevista, setMostrarRevista] = useState(false)
@@ -47,6 +48,7 @@ export default function App() {
           <SeccionJustificacion />
           <SeccionIntroduccion />
           <SeccionReferentes />
+          <SeccionEntrevista />
           <Footer />
         </>
       )}

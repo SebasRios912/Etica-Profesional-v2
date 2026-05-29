@@ -5,10 +5,11 @@ interface NavbarProps {
 }
 
 const SECCIONES = [
-  { id: 'autores', label: 'Autores' },
+  { id: 'autores',       label: 'Autores' },
   { id: 'justificacion', label: 'Justificación' },
-  { id: 'introduccion', label: 'Introducción' },
-  { id: 'referentes', label: 'Referentes' },
+  { id: 'introduccion',  label: 'Introducción' },
+  { id: 'referentes',    label: 'Referentes' },
+  { id: 'entrevista',    label: 'Entrevista' },
 ]
 
 export function Navbar({ seccionActiva }: NavbarProps) {
